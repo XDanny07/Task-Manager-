@@ -1,0 +1,61 @@
+<div class="task-component">
+  <div class="task-summary" (click)="toggleDetails()">
+    <h3 class="task-title">Task Name: {{ name }}</h3>
+    <p class="task-priority">Priority: {{ priority }}</p>
+  </div>
+  <div class="task-detailss">
+    <h4>Title: {{ name }}</h4>
+    <p>Description: {{ description }}</p>
+    <p>Due Date: {{ duedate }}</p>
+    <p>Priority: {{ priority }}</p>
+    <!-- <button class="history-btn">History</button> -->
+    <form (click)="handleSubmit($event)">
+      <div class="form__group field">
+        <input
+          type="input"
+          id="taskname"
+          name="name"
+          class="form__field"
+          placeholder="Name"
+          required=""
+          [value]="name"
+        />
+        <label for="taskname" class="form__label">Name</label>
+      </div>
+      <div class="form__group field">
+        <input
+          type="input"
+          id="taskdesc"
+          name="description"
+          class="form__field"
+          placeholder="Description"
+          required=""
+          [value]="description"
+        />
+        <label for="taskdesc" class="form__label">Description</label>
+      </div>
+      <div class="form__group field">
+        <input
+          type="date"
+          id="taskduedate"
+          name="duedate"
+          class="form__field"
+          required=""
+          [value]="duedate"
+        />
+        <label for="taskduedate" class="form__label">Due Date</label>
+      </div>
+      <div class="form__group field">
+        <input
+          type=""
+          id="taskpriority"
+          name="priority"
+          placeholder=""
+          class="form__field"
+          required=""
+        />
+        <label for="taskpriority" class="form__label">Priority</label>
+      </div>
+    </form>
+  </div>
+</div>
