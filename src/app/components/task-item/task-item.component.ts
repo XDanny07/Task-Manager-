@@ -8,23 +8,33 @@ import { Component } from '@angular/core';
   styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
-  name: String;
-  priority: String;
-  description: String;
-  duedate: String;
+  isExpanded: Boolean;
+  details: any = {
+    name: String,
+    priority: String,
+    description: String,
+    duedate: String,
+  };
 
   constructor() {
-    this.name = 'LOREM';
-    (this.priority = 'LOREM'),
-      (this.description = 'LOREM'),
-      (this.duedate = new Date().toISOString().split('T')[0]);
+    this.isExpanded = false;
+    this.details.name = 'LOREM';
+    (this.details.priority = 'LOREM'),
+      (this.details.description = 'LOREM'),
+      (this.details.duedate = new Date().toISOString().split('T')[0]);
+  }
+  toggleExpaned() {
+    this.isExpanded = !this.isExpanded;
   }
   handleSubmit(e: any) {
-    console.log(e);
     e.stopPropagation();
   }
+  inputChange(e: any) {
+    const { name, value } = e.target;
+    this.details[name] = value;
+    console.log(this.details);
+  }
   toggleDetails() {
-    console.log(this.duedate);
     const taskDetails = document.querySelector('.task-details');
     taskDetails?.classList.toggle('show');
   }

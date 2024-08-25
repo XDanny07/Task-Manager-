@@ -1,15 +1,12 @@
 <div class="task-component">
   <div class="task-summary" (click)="toggleDetails()">
-    <h3 class="task-title">Task Name: {{ name }}</h3>
-    <p class="task-priority">Priority: {{ priority }}</p>
+    <h3 class="task-title">Task Name: {{ this.details.name }}</h3>
+    <p class="task-priority">Priority: {{ this.details.priority }}</p>
   </div>
-  <div class="task-detailss">
-    <h4>Title: {{ name }}</h4>
-    <p>Description: {{ description }}</p>
-    <p>Due Date: {{ duedate }}</p>
-    <p>Priority: {{ priority }}</p>
+  <div class="task-details">
     <!-- <button class="history-btn">History</button> -->
-    <form (click)="handleSubmit($event)">
+    <button>edit</button>
+    <form class="taskform" (click)="handleSubmit($event)">
       <div class="form__group field">
         <input
           type="input"
@@ -18,7 +15,8 @@
           class="form__field"
           placeholder="Name"
           required=""
-          [value]="name"
+          [value]="this.details.name"
+          (input)="inputChange($event)"
         />
         <label for="taskname" class="form__label">Name</label>
       </div>
@@ -30,7 +28,8 @@
           class="form__field"
           placeholder="Description"
           required=""
-          [value]="description"
+          [value]="this.details.description"
+          (input)="inputChange($event)"
         />
         <label for="taskdesc" class="form__label">Description</label>
       </div>
@@ -41,20 +40,29 @@
           name="duedate"
           class="form__field"
           required=""
-          [value]="duedate"
+          [value]="this.details.duedate"
+          (input)="inputChange($event)"
         />
         <label for="taskduedate" class="form__label">Due Date</label>
       </div>
-      <div class="form__group field">
-        <input
-          type=""
-          id="taskpriority"
-          name="priority"
-          placeholder=""
-          class="form__field"
-          required=""
-        />
-        <label for="taskpriority" class="form__label">Priority</label>
+
+      <div class="priority-buttons" (input)="inputChange($event)">
+        <p>Priority</p>
+        <label class="radio-button">
+          <input type="radio" name="option" value="low" />
+          <div class="radio-circle"></div>
+          <span class="radio-label">Low</span>
+        </label>
+        <label class="radio-button">
+          <input type="radio" name="option" value="medium" />
+          <div class="radio-circle"></div>
+          <span class="radio-label">Medium</span>
+        </label>
+        <label class="radio-button">
+          <input type="radio" name="option" value="high" />
+          <div class="radio-circle"></div>
+          <span class="radio-label">High</span>
+        </label>
       </div>
     </form>
   </div>
