@@ -47,6 +47,23 @@
   background-color: #0056b3;
 }
 
+.taskbtn {
+  margin-bottom: 1rem;
+  padding: 0.4rem;
+  font-size: 1.5rem;
+  background-color: #fff;
+  border-radius: 25%;
+  color: red;
+}
+
+.taskoptions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+.taskoptions button {
+  cursor: pointer;
+}
 /* task form fields css start-----------*/
 
 .taskform {

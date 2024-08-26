@@ -5,7 +5,17 @@
   </div>
   <div class="task-details">
     <!-- <button class="history-btn">History</button> -->
-    <button>edit</button>
+    <div class="taskoptions">
+      <div *ngIf="!this.isEditable; else discardbtn">
+        <button class="taskbtn" (click)="toggleEditable()">&#x2710;</button>
+      </div>
+      <ng-template class="editoptions" #discardbtn>
+        <button class="taskbtn" style="color: green" (click)="toggleEditable()">
+          &#10004;
+        </button>
+        <button class="taskbtn" (click)="toggleEditable()">&#10005;</button>
+      </ng-template>
+    </div>
     <form class="taskform" (click)="handleSubmit($event)">
       <div class="form__group field">
         <input
@@ -15,6 +25,7 @@
           class="form__field"
           placeholder="Name"
           required=""
+          [disabled]="!this.isEditable"
           [value]="this.details.name"
           (input)="inputChange($event)"
         />
@@ -28,6 +39,7 @@
           class="form__field"
           placeholder="Description"
           required=""
+          [disabled]="!this.isEditable"
           [value]="this.details.description"
           (input)="inputChange($event)"
         />
@@ -40,30 +52,65 @@
           name="duedate"
           class="form__field"
           required=""
+          [disabled]="!this.isEditable"
           [value]="this.details.duedate"
           (input)="inputChange($event)"
         />
         <label for="taskduedate" class="form__label">Due Date</label>
       </div>
-
-      <div class="priority-buttons" (input)="inputChange($event)">
-        <p>Priority</p>
-        <label class="radio-button">
-          <input type="radio" name="option" value="low" />
-          <div class="radio-circle"></div>
-          <span class="radio-label">Low</span>
-        </label>
-        <label class="radio-button">
-          <input type="radio" name="option" value="medium" />
-          <div class="radio-circle"></div>
-          <span class="radio-label">Medium</span>
-        </label>
-        <label class="radio-button">
-          <input type="radio" name="option" value="high" />
-          <div class="radio-circle"></div>
-          <span class="radio-label">High</span>
-        </label>
+      <div
+        *ngIf="!this.isEditable; else selectpriority"
+        class="form__group field"
+      >
+        <input
+          type="input"
+          id="taskpriority"
+          name="priority"
+          class="form__field"
+          required=""
+          [disabled]="true"
+          [value]="this.details.priority"
+        />
+        <label for="taskpriority" class="form__label">Priority</label>
       </div>
+      <ng-template #selectpriority>
+        <div class="priority-buttons" (input)="inputChange($event)">
+          <p>Priority</p>
+          <label class="radio-button">
+            <input
+              type="radio"
+              name="option"
+              value="low"
+              [checked]="this.details.priority == 'low'"
+              [disabled]="!this.isEditable"
+            />
+            <div class="radio-circle"></div>
+            <span class="radio-label">Low</span>
+          </label>
+          <label class="radio-button">
+            <input
+              type="radio"
+              name="option"
+              value="medium"
+              [checked]="this.details.priority == 'medium'"
+              [disabled]="!this.isEditable"
+            />
+            <div class="radio-circle"></div>
+            <span class="radio-label">Medium</span>
+          </label>
+          <label class="radio-button">
+            <input
+              type="radio"
+              name="option"
+              value="high"
+              [checked]="this.details.priority == 'high'"
+              [disabled]="!this.isEditable"
+            />
+            <div class="radio-circle"></div>
+            <span class="radio-label">High</span>
+          </label>
+        </div>
+      </ng-template>
     </form>
   </div>
 </div>
