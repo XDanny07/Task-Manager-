@@ -1,3 +1,5 @@
-<app-navbar />
-
-<app-task-item />
+<div class="alltasks">
+  <div *ngFor="let task of tasks">
+    <app-task-item [data]="task" />
+  </div>
+</div>

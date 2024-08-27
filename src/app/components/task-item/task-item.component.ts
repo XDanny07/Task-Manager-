@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { toggleExpanded, toggleEditable } from '../../store/actions';
 import { TaskState } from '../../store/states';
+import { TaskService } from '../../service/task.service';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
-  private isEditableSubscription: Subscription;
+  @Input() data: any;
   isExpanded: Boolean = false;
   isEditable: Boolean = false;
   details: any = {
@@ -23,33 +23,48 @@ export class TaskItemComponent {
     duedate: String,
     status: String,
   };
-
-  constructor(private store: Store<{ taskState: TaskState }>) {
-    this.isEditableSubscription = this.store
-      .select((state) => state.taskState.isEditable)
-      .subscribe((editablestate) => {
-        this.isEditable = editablestate;
-      });
-    this.details.name = 'LOREM';
-    (this.details.priority = 'low'),
-      (this.details.description = 'LOREM'),
-      (this.details.duedate = new Date().toISOString().split('T')[0]);
-    this.details.status = 'LOREM';
+  tempdetails: any = {
+    name: String,
+    priority: String,
+    description: String,
+    duedate: String,
+    status: String,
+  };
+  constructor(
+    private store: Store<{ taskState: TaskState }>,
+    private taskService: TaskService
+  ) {}
+  ngOnInit() {
+    this.details = { ...this.data };
+    this.tempdetails = { ...this.data };
   }
-
+  async updateTask() {
+    try {
+      const updatedTask = await this.taskService.updateTask(
+        this.data._id,
+        this.tempdetails
+      );
+      this.details = { ...this.tempdetails };
+      console.log('Task updated successfully:', updatedTask);
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  }
   toggleEditable() {
-    this.store.dispatch(toggleEditable());
+    this.isEditable = !this.isEditable;
   }
   handleSubmit(e: any) {
     e.stopPropagation();
   }
+  discardChanges() {
+    this.tempdetails = { ...this.tempdetails, ...this.details };
+    this.toggleEditable();
+  }
   inputChange(e: any) {
     const { name, value } = e.target;
-    this.details[name] = value;
-    console.log(this.details);
+    this.tempdetails[name] = value;
   }
-  toggleDetails() {
-    const taskDetails = document.querySelector('.task-details');
-    taskDetails?.classList.toggle('show');
+  toggleDetails(e: any) {
+    this.isExpanded = !this.isExpanded;
   }
 }

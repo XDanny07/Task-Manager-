@@ -1,24 +1,25 @@
 <div class="task-component">
-  <div class="task-summary" (click)="toggleDetails()">
-    <h3 class="task-title">Task Name: {{ this.details.name }}</h3>
+  <div class="task-summary" (click)="toggleDetails($event)">
+    <h3 class="task-title">{{ this.details.name }}</h3>
     <p class="task-priority">Priority: {{ this.details.priority }}</p>
   </div>
-  <div class="task-details">
+  <div class="task-details" [ngClass]="this.isExpanded ? 'show' : ''">
     <!-- <button class="history-btn">History</button> -->
     <div class="taskoptions">
       <div *ngIf="!this.isEditable; else discardbtn">
         <button class="taskbtn" (click)="toggleEditable()">&#x2710;</button>
       </div>
       <ng-template class="editoptions" #discardbtn>
-        <button class="taskbtn" style="color: green" (click)="toggleEditable()">
+        <button class="taskbtn" style="color: green" (click)="updateTask()">
           &#10004;
         </button>
-        <button class="taskbtn" (click)="toggleEditable()">&#10005;</button>
+        <button class="taskbtn" (click)="discardChanges()">&#10005;</button>
       </ng-template>
     </div>
     <form class="taskform" (click)="handleSubmit($event)">
       <div class="form__group field">
         <input
+          ngModel="{{ this.tempdetails.name }}"
           type="input"
           id="taskname"
           name="name"
@@ -26,7 +27,6 @@
           placeholder="Name"
           required=""
           [disabled]="!this.isEditable"
-          [value]="this.details.name"
           (input)="inputChange($event)"
         />
         <label for="taskname" class="form__label">Name</label>
@@ -40,7 +40,7 @@
           placeholder="Description"
           required=""
           [disabled]="!this.isEditable"
-          [value]="this.details.description"
+          ngModel="{{ this.tempdetails.description }}"
           (input)="inputChange($event)"
         />
         <label for="taskdesc" class="form__label">Description</label>
@@ -53,11 +53,68 @@
           class="form__field"
           required=""
           [disabled]="!this.isEditable"
-          [value]="this.details.duedate"
+          ngModel="{{ this.tempdetails.duedate }}"
           (input)="inputChange($event)"
         />
         <label for="taskduedate" class="form__label">Due Date</label>
       </div>
+
+      <div
+        *ngIf="!this.isEditable; else selectstatus"
+        class="form__group field"
+      >
+        <input
+          type="input"
+          id="taskstatus"
+          name="status"
+          class="form__field"
+          placeholder="Status"
+          required=""
+          [disabled]="!this.isEditable"
+          ngModel="{{ this.tempdetails.status }}"
+          (input)="inputChange($event)"
+        />
+        <label for="taskstatus" class="form__label">Status</label>
+      </div>
+      <ng-template #selectstatus>
+        <div class="priority-buttons">
+          <p>Status</p>
+          <label class="radio-button">
+            <input
+              type="radio"
+              name="status"
+              value="To-Do"
+              [checked]="this.details.status == 'To-Do'"
+              (input)="inputChange($event)"
+            />
+            <div class="radio-circle"></div>
+            <span class="radio-label">To-do</span>
+          </label>
+          <label class="radio-button">
+            <input
+              type="radio"
+              name="status"
+              value="In-Progress"
+              [checked]="this.details.status == 'In-Progress'"
+              (input)="inputChange($event)"
+            />
+            <div class="radio-circle"></div>
+            <span class="radio-label">In-Progress</span>
+          </label>
+          <label class="radio-button">
+            <input
+              type="radio"
+              name="status"
+              value="Completed"
+              [checked]="this.details.status == 'Completed'"
+              (input)="inputChange($event)"
+            />
+            <div class="radio-circle"></div>
+            <span class="radio-label">Completed</span>
+          </label>
+        </div>
+      </ng-template>
+
       <div
         *ngIf="!this.isEditable; else selectpriority"
         class="form__group field"
@@ -69,18 +126,20 @@
           class="form__field"
           required=""
           [disabled]="true"
-          [value]="this.details.priority"
+          ngModel="{{ this.tempdetails.priority }}"
         />
         <label for="taskpriority" class="form__label">Priority</label>
       </div>
+
       <ng-template #selectpriority>
-        <div class="priority-buttons" (input)="inputChange($event)">
+        <div class="priority-buttons">
           <p>Priority</p>
           <label class="radio-button">
             <input
               type="radio"
-              name="option"
-              value="low"
+              name="priority"
+              value="Low"
+              (input)="inputChange($event)"
               [checked]="this.details.priority == 'low'"
               [disabled]="!this.isEditable"
             />
@@ -90,8 +149,9 @@
           <label class="radio-button">
             <input
               type="radio"
-              name="option"
-              value="medium"
+              name="priority"
+              value="Medium"
+              (input)="inputChange($event)"
               [checked]="this.details.priority == 'medium'"
               [disabled]="!this.isEditable"
             />
@@ -101,8 +161,9 @@
           <label class="radio-button">
             <input
               type="radio"
-              name="option"
-              value="high"
+              name="priority"
+              value="High"
+              (input)="inputChange($event)"
               [checked]="this.details.priority == 'high'"
               [disabled]="!this.isEditable"
             />
