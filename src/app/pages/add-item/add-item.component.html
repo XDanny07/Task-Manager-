@@ -32,6 +32,7 @@
         name="duedate"
         class="form__field"
         required=""
+        [value]="this.details.duedate"
         (input)="inputChange($event)"
       />
       <label for="taskduedate" class="form__label">Due Date</label>

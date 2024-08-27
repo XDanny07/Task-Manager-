@@ -38,4 +38,13 @@ export class TaskService {
       throw error;
     }
   }
+  async deleteTask(taskId: string): Promise<any> {
+    try {
+      const response = await axios.delete(`${this.apiUrl}/${taskId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting task:', error);
+      throw error;
+    }
+  }
 }

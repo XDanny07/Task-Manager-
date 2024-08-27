@@ -1,5 +1,6 @@
 <div class="task-component">
-  <div class="task-summary" (click)="toggleDetails($event)">
+  <button (click)="deleteTask()">DEL</button>
+  <div class="task-summary" (click)="toggleDetails()">
     <h3 class="task-title">{{ this.details.name }}</h3>
     <p class="task-priority">Priority: {{ this.details.priority }}</p>
   </div>
@@ -140,7 +141,7 @@
               name="priority"
               value="Low"
               (input)="inputChange($event)"
-              [checked]="this.details.priority == 'low'"
+              [checked]="this.details.priority == 'Low'"
               [disabled]="!this.isEditable"
             />
             <div class="radio-circle"></div>
@@ -152,7 +153,7 @@
               name="priority"
               value="Medium"
               (input)="inputChange($event)"
-              [checked]="this.details.priority == 'medium'"
+              [checked]="this.details.priority == 'Medium'"
               [disabled]="!this.isEditable"
             />
             <div class="radio-circle"></div>
@@ -164,7 +165,7 @@
               name="priority"
               value="High"
               (input)="inputChange($event)"
-              [checked]="this.details.priority == 'high'"
+              [checked]="this.details.priority == 'High'"
               [disabled]="!this.isEditable"
             />
             <div class="radio-circle"></div>

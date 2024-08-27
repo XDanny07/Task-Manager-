@@ -50,6 +50,13 @@ export class TaskItemComponent {
       console.error('Error updating task:', error);
     }
   }
+  async deleteTask() {
+    try {
+      const deleteTask = await this.taskService.deleteTask(this.data._id);
+    } catch (error) {
+      console.log('Error deleting task', error);
+    }
+  }
   toggleEditable() {
     this.isEditable = !this.isEditable;
   }
@@ -64,7 +71,7 @@ export class TaskItemComponent {
     const { name, value } = e.target;
     this.tempdetails[name] = value;
   }
-  toggleDetails(e: any) {
+  toggleDetails() {
     this.isExpanded = !this.isExpanded;
   }
 }

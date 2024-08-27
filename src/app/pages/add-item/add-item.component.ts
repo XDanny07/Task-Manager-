@@ -16,7 +16,9 @@ export class AddItemComponent {
     duedate: String,
     status: String,
   };
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService) {
+    this.details.duedate = new Date().toISOString().split('T')[0];
+  }
   inputChange(e: any) {
     const { name, value } = e.target;
     this.details[name] = value;
