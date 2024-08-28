@@ -40,6 +40,7 @@ export class TaskItemComponent {
     this.tempdetails = { ...this.data };
   }
   async updateTask() {
+    if (!confirm('Are you sure you want to update this task ?')) return;
     try {
       const updatedTask = await this.taskService.updateTask(
         this.data._id,
@@ -52,6 +53,7 @@ export class TaskItemComponent {
     }
   }
   async deleteTask() {
+    if (!confirm('Are you sure you want to delete this task ?')) return;
     try {
       const deleteTask = await this.taskService.deleteTask(this.data._id);
     } catch (error) {
@@ -73,6 +75,7 @@ export class TaskItemComponent {
     this.tempdetails[name] = value;
   }
   toggleDetails() {
+    if (this.isExpanded) this.discardChanges();
     this.isExpanded = !this.isExpanded;
   }
 }

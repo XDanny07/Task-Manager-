@@ -32,8 +32,10 @@ export class AddItemComponent {
     try {
       const response = await this.taskService.addTask(this.details);
       console.log('Task added successfully:', response);
+      alert('Task Added Successfully');
     } catch (error) {
       console.error('Error adding task:', error);
+      alert("Couldn't add task");
     }
   }
 }

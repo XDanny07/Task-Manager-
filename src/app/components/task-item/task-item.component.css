@@ -1,5 +1,5 @@
 .task-component {
-  background-color: #fff;
+  background-color: powderblue;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 300px;
@@ -7,7 +7,34 @@
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
-
+.task-title {
+  pointer-events: none;
+}
+.task-priority {
+  pointer-events: none;
+}
+.task-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task-btns {
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
+}
+.task-btns button {
+  background-color: transparent;
+  border-radius: 10%;
+  border: none;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+.history-btn:hover {
+  transform: scale(1.2);
+}
 .task-summary {
   padding: 1.5rem;
   cursor: pointer;
@@ -31,20 +58,6 @@
 
 .task-details.show {
   display: block;
-}
-
-.history-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.history-btn:hover {
-  background-color: #0056b3;
 }
 
 .taskbtn {

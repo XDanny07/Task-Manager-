@@ -1,10 +1,16 @@
 <div class="task-group">
-  <div [style.backgroundColor]="color" class="task-info">
+  <div
+    (click)="toggleExpand()"
+    [style.backgroundColor]="color"
+    class="task-info"
+  >
     <h2>{{ heading }}</h2>
-    <button (click)="toggleExpand()">EXPAND</button>
+    <button *ngIf="expanded">&#11166;</button>
+    <button *ngIf="!expanded">&#11167;</button>
   </div>
 
   <div class="task-container" *ngIf="expanded">
+    <div *ngIf="tasks?.length == 0">No Tasks</div>
     <div *ngFor="let task of tasks">
       <app-task-item [data]="task" />
     </div>

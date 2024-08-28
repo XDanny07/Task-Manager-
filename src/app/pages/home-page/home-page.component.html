@@ -1,5 +1,5 @@
 <div class="alltasks">
-  <div>
+  <div class="filter-container">
     <label for="sortselect">Sort By : </label>
     <select id="sortselect" (input)="applySort($event)">
       <option value="status" selected>Status</option>
@@ -7,21 +7,24 @@
       <option value="due-date">Due-Date</option>
     </select>
   </div>
-  <div>
+  <div class="task-list-container">
     <div class="task-list" *ngIf="this.sortOn == 'status'">
       <app-task-list
         [heading]="'To-Do'"
         [color]="'green'"
+        [expanded]="true"
         [tasks]="filteredTasks[0]"
       />
       <app-task-list
         [heading]="'In-Progress'"
         [color]="'orange'"
+        [expanded]="true"
         [tasks]="filteredTasks[1]"
       />
       <app-task-list
         [heading]="'Completed'"
         [color]="'red'"
+        [expanded]="true"
         [tasks]="filteredTasks[2]"
       />
     </div>
@@ -29,16 +32,19 @@
       <app-task-list
         [heading]="'Low'"
         [color]="'green'"
+        [expanded]="true"
         [tasks]="filteredTasks[0]"
       />
       <app-task-list
         [heading]="'Medium'"
         [color]="'orange'"
+        [expanded]="true"
         [tasks]="filteredTasks[1]"
       />
       <app-task-list
         [heading]="'High'"
         [color]="'red'"
+        [expanded]="true"
         [tasks]="filteredTasks[2]"
       />
     </div>

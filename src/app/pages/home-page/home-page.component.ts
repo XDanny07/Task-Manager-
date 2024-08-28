@@ -59,7 +59,7 @@ export class HomePageComponent {
     // console.log(this.filteredTasks);
   }
   statusFilter() {
-    const todo = this.tasks.filter((task) => task.status === 'To-Do');
+    const todo = this.tasks.filter((task) => task.status === 'To-do');
     const inprog = this.tasks.filter((task) => task.status === 'In-Progress');
     const comp = this.tasks.filter((task) => task.status === 'Completed');
     this.filteredTasks = [todo, inprog, comp];
