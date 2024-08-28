@@ -5,7 +5,7 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:3000/api/tasks'; // Your backend API URL
+  private apiUrl = `https://task-manager-backend-fawn.vercel.app/api/tasks`; // Your backend API URL
 
   constructor() {}
 

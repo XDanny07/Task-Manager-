@@ -5,12 +5,13 @@ import axios, { AxiosResponse } from 'axios';
   providedIn: 'root',
 })
 export class TaskHistoryService {
-  private apiUrl = 'http://localhost:3000/api/history';
+  private apiUrl = `https://task-manager-backend-fawn.vercel.app/api/history`;
 
   constructor() {}
 
   getTaskHistory(taskId: string): Promise<AxiosResponse<any>> {
     const url = `${this.apiUrl}/${taskId}`;
+
     return axios.get(url);
   }
 }

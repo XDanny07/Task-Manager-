@@ -1,0 +1,24 @@
+.task-group {
+  display: flex;
+  flex-direction: column;
+  /* padding: 25px 120px; */
+  width: 500px;
+  align-items: center;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+.task-container {
+  padding: 20px 0;
+}
+.task-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0px;
+  gap: 20px;
+  color: white;
+}
+
+.task-info h2 {
+  padding-left: 20px;
+}
