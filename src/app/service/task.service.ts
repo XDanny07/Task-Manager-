@@ -5,7 +5,7 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'http://192.168.56.98:3000/api/tasks'; // Your backend API URL
+  private apiUrl = 'http://localhost:3000/api/tasks'; // Your backend API URL
 
   constructor() {}
 

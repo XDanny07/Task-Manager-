@@ -1,5 +1,6 @@
 <div class="task-component">
   <button (click)="deleteTask()">DEL</button>
+  <button [routerLink]="['/history', this.details._id]">HIS</button>
   <div class="task-summary" (click)="toggleDetails()">
     <h3 class="task-title">{{ this.details.name }}</h3>
     <p class="task-priority">Priority: {{ this.details.priority }}</p>

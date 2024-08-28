@@ -1,1 +1,58 @@
-<p>history-page works!</p>
+<div class="history-container">
+  <h2>Task History</h2>
+
+  <table
+    *ngIf="taskHistory && taskHistory[0].history.length > 0"
+    class="history-table"
+  >
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Field Name</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of taskHistory[0].history">
+        <td
+          [attr.rowspan]="entry.updatedFields?.length || 1"
+          data-label="Action"
+        >
+          {{ entry.action }}
+        </td>
+        <td data-label="Field Name">
+          {{ entry.updatedFields[0]?.fieldName || "NA" }}
+        </td>
+        <td data-label="Old Value">
+          {{ entry.updatedFields[0]?.oldValue || "NA" }}
+        </td>
+        <td data-label="New Value">
+          {{ entry.updatedFields[0]?.newValue || "NA" }}
+        </td>
+        <td
+          [attr.rowspan]="entry.updatedFields?.length || 1"
+          data-label="Timestamp"
+        >
+          {{ entry.timestamp | date : "short" }}
+        </td>
+      </tr>
+
+      <ng-container *ngFor="let entry of taskHistory[0].history">
+        <tr *ngFor="let field of entry.updatedFields.slice(1)">
+          <td data-label="Field Name">{{ field.fieldName }}</td>
+          <td data-label="Old Value">{{ field.oldValue }}</td>
+          <td data-label="New Value">{{ field.newValue }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div
+    *ngIf="!taskHistory || taskHistory[0].history.length === 0"
+    class="no-history"
+  >
+    <p>No history available for this task.</p>
+  </div>
+</div>
